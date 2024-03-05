@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="TravelessApp.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TravelessApp"
+    FlyoutBehavior="Disabled"
+    xmlns:views="clr-namespace:TravelessApp.Views">
+
+    <!--menu here to be accesible on all pages-->
+    <Shell.ToolbarItems>
+        
+        <ToolbarItem Text="Home"
+                     Clicked="Home_Clicked"
+                     IconImageSource="{FontImage &#xf38f;, FontFamily=Ionicons, Size=900, Color=white}">
+        </ToolbarItem>
+        <ToolbarItem Text="Flights"
+                     Clicked="Flights_Clicked"
+                     IconImageSource="{FontImage &#xf489;, FontFamily=Ionicons, Size=900, Color=white}">
+        </ToolbarItem>
+        <ToolbarItem Text="Reservations"
+                     Clicked="Reservations_Clicked"
+                     IconImageSource="{FontImage &#xf4a4;, FontFamily=Ionicons, Size=900, Color=white}">
+        </ToolbarItem>
+    </Shell.ToolbarItems>
+
+    <ShellContent
+        Title=""
+        ContentTemplate="{DataTemplate local:MainPage}"
+        Route="MainPage" />
+
+</Shell>

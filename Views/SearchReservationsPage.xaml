@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TravelessApp.Views.SearchReservationsPage"
+             Title="Search Reservations"
+             BackgroundColor="#363737">
+    <Grid
+        ColumnDefinitions="200,200,200,200"
+        RowDefinitions="30,50,70,30,50,50,50,50,50,50,50,50,50"
+        Margin="10,0,10,10"
+        RowSpacing="10"
+        ColumnSpacing="10"
+        >
+        <Entry
+            x:Name="FlightCode"
+            HeightRequest="5"
+            Grid.Column="0"
+            Grid.Row="1"
+            
+            Placeholder="Flight Code"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"/>
+
+        <Entry
+            x:Name="Airline"
+            Grid.Column="1"
+            Grid.Row="1"
+            Placeholder="Airline"
+            HeightRequest="5"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"/>
+
+
+        <Entry
+            x:Name="Name"
+            
+            HeightRequest="5"
+            Grid.Column="2"
+            Grid.Row="1"
+            Placeholder="Customer Name"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"
+            />
+        <Button
+            Grid.Column="3"
+            Grid.Row="1"
+            Text="Find Reservations"
+            BackgroundColor="#464747"
+            TextColor="White"
+            HeightRequest="5"
+           />
+
+
+        <!--defining column span doesn't work-->
+        <Picker x:Name="picker"
+            Title="Select a Reservation"
+            WidthRequest="830"
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalOptions="Start"
+                VerticalOptions="End">
+
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TravelessApp.Views.FlightsPage"
+             Title="Flights"
+             BackgroundColor="#363737">
+
+    <Grid
+        ColumnDefinitions="200,200,200,200"
+        RowDefinitions="30,50,70,30,50,50,50,50,50,50,50,50,50"
+        Margin="10,0,10,10"
+        RowSpacing="10"
+        ColumnSpacing="10"
+        >
+        <Label 
+            Text="Flight Finder"
+            Grid.Column="0"
+            Grid.Row="0"
+            VerticalOptions="End"
+            />
+
+        <Entry
+            x:Name="From"
+            HeightRequest="5"
+            Grid.Column="0"
+            Grid.Row="1"
+            
+            Placeholder="From"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"/>
+        
+        <Entry
+            x:Name="To"
+            Grid.Column="1"
+            Grid.Row="1"
+            Placeholder="To"
+            HeightRequest="5"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"/>
+        
+
+        <Entry
+            x:Name="Day"
+            
+            HeightRequest="5"
+            Grid.Column="2"
+            Grid.Row="1"
+            Placeholder="Day"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"
+            />
+        <Button
+            Grid.Column="3"
+            Grid.Row="1"
+            Text="Find Flights"
+            BackgroundColor="#464747"
+            TextColor="White"
+            HeightRequest="5"
+            Clicked="FindFlights_Clicked"
+           />
+
+
+        <!--defining column span doesn't work-->
+        <Picker x:Name="picker"
+            Title="Select a flight"
+            WidthRequest="830"
+            Grid.Column="0"
+            Grid.Row="2"
+            HorizontalOptions="Start"
+                VerticalOptions="End">
+
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                    <x:String>Golden Lion Tamarin</x:String>
+                    <x:String>Howler Monkey</x:String>
+                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+        <Label 
+            Text="Make a reservation"
+            Grid.Column="0"
+            Grid.Row="3"
+            VerticalOptions="End"
+            />
+        
+        <!--readonly displays for flight info-->
+        <Border
+            Grid.Column="0"
+            Grid.Row="4"
+            Grid.ColumnSpan="4"
+            Padding="10">
+            <Border.StrokeShape>
+            <RoundRectangle CornerRadius="3" />
+            </Border.StrokeShape>
+            
+            <Label
+            x:Name="FlightCode"
+            Text="Flight Code"
+            TextColor="White"
+            BackgroundColor="#363737"/>
+        </Border>
+
+        <Border
+            Grid.Column="0"
+            Grid.Row="5"
+            Grid.ColumnSpan="4"
+            Padding="10">
+            <Border.StrokeShape>
+            <RoundRectangle CornerRadius="3" />
+            </Border.StrokeShape>
+            
+            <Label
+            x:Name="Airline"
+            Text="Airline"
+            TextColor="White"
+            BackgroundColor="#363737"/>
+        </Border>
+        
+
+        <Border
+            Grid.Column="0"
+            Grid.Row="6"
+            Grid.ColumnSpan="4"
+            Padding="10">
+            <Border.StrokeShape>
+            <RoundRectangle CornerRadius="3" />
+            </Border.StrokeShape>
+            
+            <Label
+            x:Name="ReservationDay"
+            Text="Day"
+            TextColor="White"
+            BackgroundColor="#363737"/>
+        </Border>
+        <Border
+            Grid.Column="0"
+            Grid.Row="7"
+            Grid.ColumnSpan="4"
+            Padding="10">
+            <Border.StrokeShape>
+            <RoundRectangle CornerRadius="3" />
+            </Border.StrokeShape>
+            
+            <Label
+            x:Name="Time"
+            Text="Time"
+            TextColor="White"
+            BackgroundColor="#363737"/>
+        </Border>
+        
+        <Border
+            Grid.Column="0"
+            Grid.Row="8"
+            Grid.ColumnSpan="4"
+            Padding="10">
+            <Border.StrokeShape>
+            <RoundRectangle CornerRadius="3" />
+            </Border.StrokeShape>
+            
+            <Label
+            x:Name="Cost"
+            Text="Cost"
+            TextColor="White"
+            BackgroundColor="#363737"/>
+        </Border>
+        
+
+        <Entry
+            x:Name="Name"
+            
+            HeightRequest="5"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Grid.Row="9"
+            Placeholder="Enter Name"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"
+            />
+        <Entry
+            x:Name="Citizenship"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Grid.Row="10"
+            Placeholder="Enter Citizenship"
+            HeightRequest="5"
+            BackgroundColor="#464747"
+            PlaceholderColor="#9c9c9c"/>
+        
+        <Button
+            Grid.Column="0"
+            Grid.Row="11"
+            Grid.ColumnSpan="4"
+            Text="Reserve"
+            BackgroundColor="#464747"
+            TextColor="White"
+            HeightRequest="5"
+           />
+        
+        <!--display generated reservation code here-->
+        <Label
+            Grid.Column="2"
+            Grid.Row="12"
+            x:Name="ReservationCode"
+            Text=""
+            TextColor="White"
+            BackgroundColor="#363737"/>
+    </Grid>
+
+</ContentPage>
