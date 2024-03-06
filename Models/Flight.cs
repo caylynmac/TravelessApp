@@ -16,7 +16,9 @@ namespace TravelessApp.Models
         public string Day { get; set; }
         public string Time { get; set; }
         public string Cost { get; set; }
+        public bool IsFullyBooked { get; set; } // Property to indicate if the flight is fully booked
 
-        
+
+
     }
 }
