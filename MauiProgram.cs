@@ -14,6 +14,7 @@ namespace TravelessApp
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("Ionicons.ttf", "Ionicons");
+                    fonts.AddFont("VeraMono.ttf", "veramono"); //monospaced font for tostring values to have proper alignment
                 });
 
 #if DEBUG
