@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace TravelessApp.Models
 {
-    internal class Reservation
+    public class Reservation
     {
         // Properties
         public string ReservationCode { get; } // Unique reservation code
