@@ -42,6 +42,7 @@
             PlaceholderColor="#9c9c9c"
             />
         <Button
+            Clicked="FindReservation_Clicked"
             Grid.Column="3"
             Grid.Row="1"
             Text="Find Reservations"
@@ -52,13 +53,13 @@
 
 
         <!--defining column span doesn't work-->
-        <Picker x:Name="picker"
+        <Picker x:Name="reservationPicker"
             Title="Select a Reservation"
             WidthRequest="830"
             Grid.Column="0"
             Grid.Row="2"
             HorizontalOptions="Start"
-                VerticalOptions="End">
+            VerticalOptions="End">
 
             <Picker.ItemsSource>
                 <x:Array Type="{x:Type x:String}">
