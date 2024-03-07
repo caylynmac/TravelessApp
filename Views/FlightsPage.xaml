@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TravelessApp.Views.FlightsPage"
              Title="Flights"
-             BackgroundColor="#363737">
+             BackgroundColor="#363737"
+             >
 
     <Grid
         ColumnDefinitions="200,200,200,200"
@@ -61,39 +62,18 @@
 
 
         <!--defining column span doesn't work-->
-        <Picker x:Name="picker"
-            Title="Select a flight"
-            WidthRequest="830"
-            Grid.Column="0"
-            Grid.Row="2"
-            HorizontalOptions="Start"
-                VerticalOptions="End">
+        <Picker x:Name="FlightPicker"
+                Title="Select a flight"
+                WidthRequest="830"
+                Grid.Column="0"
+                Grid.Row="2"
+                HorizontalOptions="Start"
+                VerticalOptions="End"
+                FontFamily="veramono"
+                SelectedIndexChanged="Flight_selected">
 
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Baboon</x:String>
-                    <x:String>Capuchin Monkey</x:String>
-                    <x:String>Blue Monkey</x:String>
-                    <x:String>Squirrel Monkey</x:String>
-                    <x:String>Golden Lion Tamarin</x:String>
-                    <x:String>Howler Monkey</x:String>
-                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
-                    <x:String>Baboon</x:String>
-                    <x:String>Capuchin Monkey</x:String>
-                    <x:String>Blue Monkey</x:String>
-                    <x:String>Squirrel Monkey</x:String>
-                    <x:String>Golden Lion Tamarin</x:String>
-                    <x:String>Howler Monkey</x:String>
-                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
-                    <x:String>Baboon</x:String>
-                    <x:String>Capuchin Monkey</x:String>
-                    <x:String>Blue Monkey</x:String>
-                    <x:String>Squirrel Monkey</x:String>
-                    <x:String>Golden Lion Tamarin</x:String>
-                    <x:String>Howler Monkey</x:String>
-                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
+
+
         </Picker>
         <Label 
             Text="Make a reservation"
@@ -213,6 +193,7 @@
             BackgroundColor="#464747"
             TextColor="White"
             HeightRequest="5"
+            Clicked="ReserveButton_Clicked"
            />
         
         <!--display generated reservation code here-->
