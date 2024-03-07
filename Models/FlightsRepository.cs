@@ -1,96 +1,73 @@
-﻿
-using Microsoft.Maui.Controls.Shapes;
+﻿// FlightsRepository.cs
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TravelessApp.Models
 {
-    class FlightsRepository
+    public class FlightsRepository
     {
-        //define list to store flights
-        static List<Flight> Flights = new List<Flight>() {
-        
-            //test data
-            new Flight
+        public static List<Flight> Flights = new List<Flight>();
+
+        public FlightsRepository()
         {
-            FlightCode = "m",
-            Airline = "m",
-            From = "m",
-            To = "m",
-            Day = "m",
-            Time = "m",
-            Cost = "m",
-        }
-        };
-
-
-        //import csv data 
-        //not working yet
-
-        FlightsRepository()
-        {
-            string[] lines = File.ReadAllLines("C:cprg211/labs/TravelessApp/Models/flights.csv");
-
-            foreach (string line in lines)
-            {
-
-                string[] data = line.Split(',');
-                Flight AddFlight = new Flight
-                {
-                    FlightCode = data[0],
-                    Airline = data[1],
-                    From = data[2],
-                    To = data[3],
-                    Day = data[4],
-                    Time = data[5],
-                    Cost = data[6],
-                };
-
-                Flights.Add(AddFlight);
-                
-            }
-
+            ReadFlightsFromCSV("C:\\Users\\contr\\OneDrive\\Desktop\\C# assignments\\TravelessApp\\Models\\flights.csv");
         }
 
-
-            //Find matching flights
-
-            //can't make method public??
-
-            public static List<Flight> FindFlights(string origin, string destination, string day)
+        private void ReadFlightsFromCSV(string fileName)
+        {
+            try
             {
-                //create list to store matches
-                List<Flight> FlightsFound = new List<Flight>();
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), fileName);
+                string[] lines = File.ReadAllLines(filePath);
 
-            foreach (Flight flight in Flights)
-            {
-
-                //iterate then copy matches to new list
-                if ((flight.From == origin) && (flight.To == destination) && (flight.Day == day))
+                foreach (string line in lines.Skip(1)) // Skip header line
                 {
-                    Flight FoundFlight = new Flight
+                    string[] data = line.Split(',');
+                    Flight addFlight = new Flight
                     {
-                        FlightCode = flight.FlightCode,
-                        Airline = flight.Airline,
-                        From = flight.From,
-                        To = flight.To,
-                        Day = flight.Day,
-                        Time = flight.Time,
-                        Cost = flight.Cost
+                        FlightCode = data[0],
+                        Airline = data[1],
+                        From = data[2],
+                        To = data[3],
+                        Day = data[4],
+                        Time = data[5],
+                        Cost = data[6]
                     };
 
-
-                    FlightsFound.Add(FoundFlight);
+                    Flights.Add(addFlight);
                 }
             }
-            Console.WriteLine(FlightsFound);
-            return FlightsFound;
-
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading CSV file: {ex.Message}");
             }
         }
 
-    }
+        public static List<string> GetFlightNames()
+        {
+            return Flights.Select(f => f.FlightCode).ToList();
+        }
 
+        public static List<Flight> FindFlights(string origin, string destination, string dayOfWeek)
+        {
+            return Flights.Where(f => f.From.Equals(origin, StringComparison.OrdinalIgnoreCase) &&
+                                       f.To.Equals(destination, StringComparison.OrdinalIgnoreCase) &&
+                                       f.Day.Equals(dayOfWeek, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
+        public static Flight GetFlightByCode(string flightCode)
+        {
+            return Flights.FirstOrDefault(f => f.FlightCode.Equals(flightCode, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static Reservation MakeReservation(Flight flight, string travelerName, string citizenship)
+        {
+            string reservationCode = $"{flight.FlightCode}_{DateTime.Now.Ticks}";
+            Reservation reservation = new Reservation(reservationCode, flight, travelerName, citizenship);
+            
+            return reservation;
+        }
+    }
+}

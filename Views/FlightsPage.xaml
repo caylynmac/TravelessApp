@@ -61,7 +61,7 @@
 
 
         <!--defining column span doesn't work-->
-        <Picker x:Name="picker"
+        <Picker x:Name="FlightPicker"
             Title="Select a flight"
             WidthRequest="830"
             Grid.Column="0"
@@ -69,31 +69,7 @@
             HorizontalOptions="Start"
                 VerticalOptions="End">
 
-            <Picker.ItemsSource>
-                <x:Array Type="{x:Type x:String}">
-                    <x:String>Baboon</x:String>
-                    <x:String>Capuchin Monkey</x:String>
-                    <x:String>Blue Monkey</x:String>
-                    <x:String>Squirrel Monkey</x:String>
-                    <x:String>Golden Lion Tamarin</x:String>
-                    <x:String>Howler Monkey</x:String>
-                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
-                    <x:String>Baboon</x:String>
-                    <x:String>Capuchin Monkey</x:String>
-                    <x:String>Blue Monkey</x:String>
-                    <x:String>Squirrel Monkey</x:String>
-                    <x:String>Golden Lion Tamarin</x:String>
-                    <x:String>Howler Monkey</x:String>
-                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
-                    <x:String>Baboon</x:String>
-                    <x:String>Capuchin Monkey</x:String>
-                    <x:String>Blue Monkey</x:String>
-                    <x:String>Squirrel Monkey</x:String>
-                    <x:String>Golden Lion Tamarin</x:String>
-                    <x:String>Howler Monkey</x:String>
-                    <x:String>Japanese Macaquennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</x:String>
-                </x:Array>
-            </Picker.ItemsSource>
+           
         </Picker>
         <Label 
             Text="Make a reservation"
@@ -213,6 +189,7 @@
             BackgroundColor="#464747"
             TextColor="White"
             HeightRequest="5"
+            Clicked="ReserveButton_Clicked"
            />
         
         <!--display generated reservation code here-->
