@@ -5,14 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:TravelessApp"
     FlyoutBehavior="Disabled"
-    xmlns:views="clr-namespace:TravelessApp.Views">
+    xmlns:views="clr-namespace:TravelessApp.Views"    
+    >
 
     <!--menu here to be accesible on all pages-->
     <Shell.ToolbarItems>
         
         <ToolbarItem Text="Home"
                      Clicked="Home_Clicked"
-                     IconImageSource="{FontImage &#xf38f;, FontFamily=Ionicons, Size=900, Color=white}">
+                     IconImageSource="{FontImage &#xf38f;, FontFamily=Ionicons, Size=900, Color=white}"
+                     >
         </ToolbarItem>
         <ToolbarItem Text="Flights"
                      Clicked="Flights_Clicked"
@@ -26,6 +28,7 @@
 
     <ShellContent
         Title=""
+        
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

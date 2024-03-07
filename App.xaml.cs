@@ -1,4 +1,5 @@
-﻿namespace TravelessApp
+﻿
+namespace TravelessApp
 {
     public partial class App : Application
     {
@@ -7,7 +8,19 @@
             InitializeComponent();
 
             MainPage = new AppShell();
+            
 
+        }
+
+        //set initial window height and position
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            var window = base.CreateWindow(activationState);
+
+            window.Height = 800;
+            window.X = 0;
+            window.Y = 0;   
+            return window;
         }
     }
 }

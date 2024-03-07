@@ -1,5 +1,6 @@
 ﻿using TravelessApp.Views;
 
+
 namespace TravelessApp
 {
     public partial class AppShell : Shell
@@ -7,9 +8,10 @@ namespace TravelessApp
         public AppShell()
         {
             InitializeComponent();
-
+            
             Routing.RegisterRoute(nameof(FlightsPage), typeof(FlightsPage));
             Routing.RegisterRoute(nameof(SearchReservationsPage), typeof(SearchReservationsPage));
+
         }
 
         private void Home_Clicked(object sender, EventArgs e)
@@ -27,4 +29,6 @@ namespace TravelessApp
             Shell.Current.GoToAsync(nameof(SearchReservationsPage));
         }
     }
+    //IconImageSource="{FontImage &#xf4a4;, FontFamily=Ionicons, Size=900, Color=white}
+    //IconImageSource="{FontImage &#xf489;, FontFamily=Ionicons, Size=900, Color=white}"
 }
