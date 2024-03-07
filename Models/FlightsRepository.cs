@@ -1,96 +1,109 @@
-﻿
-using Microsoft.Maui.Controls.Shapes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// FlightsRepository.cs
+//using Java.Lang;
+using System.Reflection;
 
 namespace TravelessApp.Models
 {
-    class FlightsRepository
+    public class FlightsRepository
     {
-        //define list to store flights
-        static List<Flight> Flights = new List<Flight>() {
-        
-            //test data
-            new Flight
+        public static List<Flight> Flights = new List<Flight>();
+
+        string flightsFile = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "../../../../../../Models/flights.csv";
+
+        public FlightsRepository()
         {
-            FlightCode = "m",
-            Airline = "m",
-            From = "m",
-            To = "m",
-            Day = "m",
-            Time = "m",
-            Cost = "m",
+
+            ReadFlightsFromCSV(flightsFile);
         }
-        };
 
-
-        //import csv data 
-        //not working yet
-
-        FlightsRepository()
+        private void ReadFlightsFromCSV(string filePath)
         {
-            string[] lines = File.ReadAllLines("C:cprg211/labs/TravelessApp/Models/flights.csv");
+            try
+            {
+                
+                string[] lines = File.ReadAllLines(filePath);
+
+                foreach (string line in lines)
+                {
+                    string[] data = line.Split(',');
+                    Flight addFlight = new Flight
+                    {
+                        FlightCode = data[0],
+                        Airline = data[1],
+                        From = data[2],
+                        To = data[3],
+                        Day = data[4],
+                        Time = data[5],
+                        Cost = data[6]
+                    };
+
+                    Flights.Add(addFlight);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error reading CSV file: {ex.Message}");
+            }
+        }
+
+        public static List<Flight> FindFlights(string origin, string destination, string dayOfWeek)
+        {
+            //get airport codes if the input is greater than 3 (assuming a city input)
+
+            if (origin.Length > 3) { origin = GetAirportCode(origin); }
+            if (destination.Length > 3) { destination = GetAirportCode(destination); }
+
+            //it will check for matches if a if user inputted the airport code or a city
+            return Flights.Where(f => f.From.Equals(origin, StringComparison.OrdinalIgnoreCase) &&
+                                       f.To.Equals(destination, StringComparison.OrdinalIgnoreCase) &&
+                                       f.Day.Equals(dayOfWeek, StringComparison.OrdinalIgnoreCase)).ToList();
+
+        }
+
+        //use airports.csv file to convert city name inputted by user to Airport code to match to the From and To properties properly
+        //so that the user can type in a city name and find the corresponding airport that contains it in the airport name string
+
+        public static string GetAirportCode(string cityName)
+        {
+            //string airportsFile = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "../../../../../../Models/airports.csv";
+            string airportsFile = @"C:\\Users\\Cayly\\Downloads\\TravelessApp-Seth\\TravelessApp-Seth\\Models\airports.csv";
+
+                string[] lines = File.ReadAllLines(airportsFile);
+
+            string airportCode = cityName;
+            
 
             foreach (string line in lines)
             {
+                string[] airportData = line.Split(',');
 
-                string[] data = line.Split(',');
-                Flight AddFlight = new Flight
+                //iterate through second column until a match is found, return matching airport that contains city string from first column
+
+                if (airportData[1].Contains(cityName, StringComparison.OrdinalIgnoreCase))
                 {
-                    FlightCode = data[0],
-                    Airline = data[1],
-                    From = data[2],
-                    To = data[3],
-                    Day = data[4],
-                    Time = data[5],
-                    Cost = data[6],
-                };
-
-                Flights.Add(AddFlight);
-                
-            }
-
-        }
-
-
-            //Find matching flights
-
-            //can't make method public??
-
-            public static List<Flight> FindFlights(string origin, string destination, string day)
-            {
-                //create list to store matches
-                List<Flight> FlightsFound = new List<Flight>();
-
-            foreach (Flight flight in Flights)
-            {
-
-                //iterate then copy matches to new list
-                if ((flight.From == origin) && (flight.To == destination) && (flight.Day == day))
-                {
-                    Flight FoundFlight = new Flight
-                    {
-                        FlightCode = flight.FlightCode,
-                        Airline = flight.Airline,
-                        From = flight.From,
-                        To = flight.To,
-                        Day = flight.Day,
-                        Time = flight.Time,
-                        Cost = flight.Cost
-                    };
-
-
-                    FlightsFound.Add(FoundFlight);
+                    airportCode = airportData[0];
+                    return airportCode;
                 }
             }
-            Console.WriteLine(FlightsFound);
-            return FlightsFound;
+            //returns the original input in case the user already entered the airportcode instead of a city name if no matches were found
+            return airportCode;
+            
+        }
 
-            }
+        //delete this??
+        public static Flight GetFlightByCode(string flightCode)
+        {
+            return Flights.FirstOrDefault(f => f.FlightCode.Equals(flightCode, StringComparison.OrdinalIgnoreCase));
+        }
+
+        //this should be in reservation manager??
+        public static Reservation MakeReservation(Flight flight, string travelerName, string citizenship)
+        {
+            string reservationCode = $"{flight.FlightCode}_{DateTime.Now.Ticks}";
+            Reservation reservation = new Reservation(flight, travelerName, citizenship);
+            
+            return reservation;
         }
 
     }
-
+}
