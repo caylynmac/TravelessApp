@@ -5,10 +5,13 @@ namespace TravelessApp
 {
     public partial class AppShell : Shell
     {
+
         public AppShell()
         {
             InitializeComponent();
-            
+
+
+            Routing.RegisterRoute("HomePage", typeof(MainPage));
             Routing.RegisterRoute(nameof(FlightsPage), typeof(FlightsPage));
             Routing.RegisterRoute(nameof(SearchReservationsPage), typeof(SearchReservationsPage));
 
@@ -16,7 +19,7 @@ namespace TravelessApp
 
         private void Home_Clicked(object sender, EventArgs e)
         {
-            Shell.Current.GoToAsync((".."));
+            Shell.Current.GoToAsync("HomePage");
         }
 
         private void Flights_Clicked(object sender, EventArgs e)

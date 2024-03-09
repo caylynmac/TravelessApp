@@ -8,7 +8,7 @@ namespace TravelessApp
             InitializeComponent();
 
             MainPage = new AppShell();
-            
+
 
         }
 
@@ -17,7 +17,7 @@ namespace TravelessApp
         {
             var window = base.CreateWindow(activationState);
 
-            window.Height = 800;
+            window.Height = 900;
             window.X = 0;
             window.Y = 0;   
             return window;
