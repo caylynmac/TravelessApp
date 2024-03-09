@@ -42,7 +42,6 @@
 
         <Entry
             x:Name="Day"
-            
             HeightRequest="5"
             Grid.Column="2"
             Grid.Row="1"
@@ -198,8 +197,10 @@
         
         <!--display generated reservation code here-->
         <Label
-            Grid.Column="2"
+            Grid.Column="1"
             Grid.Row="12"
+            HorizontalOptions="Center"
+            Grid.ColumnSpan="2"
             x:Name="ReservationCode"
             Text=""
             TextColor="White"

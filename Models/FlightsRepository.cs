@@ -6,14 +6,14 @@ namespace TravelessApp.Models
 {
     public class FlightsRepository
     {
-        public static List<Flight> Flights = new List<Flight>();
+        public static List<Flight> Flights;
 
-        string flightsFile = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "../../../../../../Models/flights.csv";
+        string FLIGHTSFILE = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "../../../../../../Models/flights.csv";
 
         public FlightsRepository()
         {
-
-            ReadFlightsFromCSV(flightsFile);
+            Flights = new List<Flight>();
+            ReadFlightsFromCSV(FLIGHTSFILE);
         }
 
         private void ReadFlightsFromCSV(string filePath)
@@ -26,6 +26,13 @@ namespace TravelessApp.Models
                 foreach (string line in lines)
                 {
                     string[] data = line.Split(',');
+
+                    //make time 24h format
+                    if (data[5].Length != 5)
+                    {
+                        data[5] = "0" + data[5];
+                    }
+
                     Flight addFlight = new Flight
                     {
                         FlightCode = data[0],
@@ -48,16 +55,21 @@ namespace TravelessApp.Models
 
         public static List<Flight> FindFlights(string origin, string destination, string dayOfWeek)
         {
-            //get airport codes if the input is greater than 3 (assuming a city input)
-
-            if (origin.Length > 3) { origin = GetAirportCode(origin); }
-            if (destination.Length > 3) { destination = GetAirportCode(destination); }
-
+            //get airport codes if the input is greater than 3 (assuming a city input) or nothing was inputted (text = default)
             //it will check for matches if a if user inputted the airport code or a city
-            return Flights.Where(f => f.From.Equals(origin, StringComparison.OrdinalIgnoreCase) &&
-                                       f.To.Equals(destination, StringComparison.OrdinalIgnoreCase) &&
-                                       f.Day.Equals(dayOfWeek, StringComparison.OrdinalIgnoreCase)).ToList();
+            if ((origin != null) && (origin.Length > 3)) { origin = GetAirportCode(origin); }
+            if ((destination != null) && destination.Length > 3) { destination = GetAirportCode(destination); }
 
+            //if any of the input fields were not filled in, reset them to be length 2 or length 5 for day
+            //so that all flight objects with any origin and/or destination and/or day can be returned
+            if (string.IsNullOrEmpty(origin)){ origin = "xx"; } //length 2 so it becomes length 3 in the ordinal clause
+            if (string.IsNullOrEmpty(destination)) { destination = "xx"; } //the input string becomes empty if a value is entered then deleted
+            if (dayOfWeek == null) { dayOfWeek = ""; } //make null an empty string so .contains will return all days or any partial matches
+
+            // the ordinal OR operator || returns the lefthand expression if true, the right hand expression if not
+            return Flights.Where(f => (f.From.Equals(origin, StringComparison.OrdinalIgnoreCase) || f.From.Length == origin.Length + 1) &&
+                                        (f.To.Equals(destination, StringComparison.OrdinalIgnoreCase) || f.To.Length == destination.Length + 1) &&
+                                        (f.Day.Contains(dayOfWeek, StringComparison.OrdinalIgnoreCase))).ToList();
         }
 
         //use airports.csv file to convert city name inputted by user to Airport code to match to the From and To properties properly
@@ -65,10 +77,9 @@ namespace TravelessApp.Models
 
         public static string GetAirportCode(string cityName)
         {
-            //string airportsFile = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "../../../../../../Models/airports.csv";
-            string airportsFile = @"C:\\Users\\Cayly\\Downloads\\TravelessApp-Seth\\TravelessApp-Seth\\Models\airports.csv";
+            string AIRPORTSFILE = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "../../../../../../Models/airports.csv";
 
-                string[] lines = File.ReadAllLines(airportsFile);
+            string[] lines = File.ReadAllLines(AIRPORTSFILE);
 
             string airportCode = cityName;
             
@@ -89,20 +100,9 @@ namespace TravelessApp.Models
             return airportCode;
             
         }
-
-        //delete this??
         public static Flight GetFlightByCode(string flightCode)
         {
             return Flights.FirstOrDefault(f => f.FlightCode.Equals(flightCode, StringComparison.OrdinalIgnoreCase));
-        }
-
-        //this should be in reservation manager??
-        public static Reservation MakeReservation(Flight flight, string travelerName, string citizenship)
-        {
-            string reservationCode = $"{flight.FlightCode}_{DateTime.Now.Ticks}";
-            Reservation reservation = new Reservation(flight, travelerName, citizenship);
-            
-            return reservation;
         }
 
     }

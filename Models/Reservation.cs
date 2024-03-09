@@ -1,23 +1,9 @@
-﻿using System;
+﻿//using Intents;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-// Make Reservation
-// When a travel agent selects a flight from the list, the text fields are populated with the selected
-// flight code, airline, day, time, and cost. The travel agent enters the traveler’s full name and
-// citizenship. The flight code, airline, day, time, and cost cannot be edited. An error message
-// is displayed if:
-// • A reservation is to be made but no flight is selected
-// • The name field is empty
-// • The citizenship field is empty
-
-// The makeReservation method receives as its input arguments: a Flight object, the traveler's
-// name, and citizenship. An exception is thrown if the flight is completely booked, or the
-// flight is null, or the name is empty/null, or the citizenship is empty/null. If there are no
-// exceptions thrown, a Reservation object is created, saved to the binary file, and returned by
-// the method.
 
 namespace TravelessApp.Models
 {
@@ -48,30 +34,6 @@ namespace TravelessApp.Models
             // By default, reservation is active
             IsActive = true;
         }
-
-        // Method to create a new reservation
-        public static Reservation MakeReservation(Flight flight, string travelerName, string citizenship)
-        {
-            // Check for null flight
-            if (flight == null)
-                throw new ArgumentNullException(nameof(flight), "Flight cannot be null");
-
-            // Check if flight is fully booked
-            if (flight.IsFullyBooked)
-                throw new InvalidOperationException("The flight is fully booked");
-
-            // Check for empty traveler name
-            if (string.IsNullOrWhiteSpace(travelerName))
-                throw new ArgumentException("Traveler's name cannot be empty", nameof(travelerName));
-
-            // Check for empty citizenship
-            if (string.IsNullOrWhiteSpace(citizenship))
-                throw new ArgumentException("Citizenship cannot be empty", nameof(citizenship));
-
-            // Create and return a new reservation
-            return new Reservation(flight, travelerName, citizenship);
-        }
-
         // Method to generate a unique reservation code
         private string GenerateReservationCode()
         {
@@ -87,6 +49,13 @@ namespace TravelessApp.Models
         {
             IsActive = false;
             // Here you can implement logic to persist the reservation as inactive
+        }
+
+        public override string ToString()
+        {
+            return String.Format("{0,-10}{1,-25}{2,-10}{3, -20}{4,-20}{5,-20}${6, -20}{7,-20}{8,-20}", 
+                ReservationCode, TravelerName, Citizenship, Flight.FlightCode, Flight.Day, Flight.Time, Flight.Cost, "Origin: " + Flight.From, "Destination: " + Flight.To); // {index, alignment}
+
         }
     }
 }

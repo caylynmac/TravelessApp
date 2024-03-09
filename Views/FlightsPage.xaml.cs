@@ -11,11 +11,16 @@ namespace TravelessApp.Views
         public FlightsPage()
         {
             InitializeComponent();
-            new FlightsRepository(); //load csv data
-            LoadFlightNames();
+
+            //only call flights repo if this is the first time the page as been opened (count =1) (navigation stack initialized in app shell)
+
+                new FlightsRepository(); //to load csv data and access list of flights
+                new ReservationManager(); //to add to list of reservations
+                LoadFlightNames();
+            
         }
 
-        //load all flights into picker dropdown before user search
+        //load all flights from flightsrepositroy into picker dropdown before user search
         private void LoadFlightNames()
         {
             
@@ -30,7 +35,7 @@ namespace TravelessApp.Views
             string destination = To.Text;
 
 
-            // Find flights within the time range
+            // Find matching flights
             List<Flight> foundFlights = FlightsRepository.FindFlights(origin, destination, dayOfWeek);
 
             if (foundFlights != null && foundFlights.Any())
@@ -41,6 +46,7 @@ namespace TravelessApp.Views
             {
                 DisplayAlert("No Flights Found", "No flights found for the selected criteria.", "OK");
             }
+
         }
 
         private void Flight_selected(object sender, EventArgs e)
@@ -54,7 +60,7 @@ namespace TravelessApp.Views
             {
                 FlightCode.Text = f.FlightCode;
                 Airline.Text = f.Airline;
-                Day.Text = f.Day;
+                ReservationDay.Text = f.Day;
                 Time.Text = f.Time;
                 Cost.Text = "$" + f.Cost;
             }
@@ -81,24 +87,25 @@ namespace TravelessApp.Views
                 return;
             }
 
-            string flightCode = (string)FlightPicker.SelectedItem;
-            Flight selectedFlight = FlightsRepository.GetFlightByCode(flightCode);
+            
+            Flight f = FlightPicker.SelectedItem as Flight;
+            Flight selectedFlight = FlightsRepository.GetFlightByCode(f.FlightCode);
 
             if (selectedFlight != null)
             {
-                // Generate a reservation code
-                string reservationCode = $"{selectedFlight.FlightCode}_{DateTime.Now.Ticks}";
+                //this will make a reservation and add it to the list
+                Reservation reservation = ReservationManager.MakeReservation(selectedFlight, Name.Text, Citizenship.Text);
 
-                // Create a reservation
-                Reservation reservation = FlightsRepository.MakeReservation(selectedFlight, Name.Text, Citizenship.Text);
-
-                // Display reservation code
-                ReservationCode.Text = reservationCode;
+                //display reservation code from the reservation made
+                ReservationCode.Text = "Your reservation code is: " + reservation.ReservationCode;
             }
             else
             {
-                DisplayAlert("Error", "Failed to make reservation. Please try again.", "OK");
+                DisplayAlert("Error","","");
             }
+
+            //reset picker to null so new found flights aren't appended in subsequent searches
+
         }
     }
 }

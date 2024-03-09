@@ -10,7 +10,7 @@ namespace TravelessApp.Models
 {
     public class Flight
     {
-        //make private??
+        
         public string FlightCode { get; set; }
         public string Airline { get; set; }
         public string From { get; set; } // origin city
@@ -23,7 +23,7 @@ namespace TravelessApp.Models
 
         
         public override string ToString() {
-            return String.Format("{0,-10}{1,-15}${2,-10}{3, -20}{4,-20}{5,-20}", Time, Day, Cost, Airline, "Origin: "+ From, "Destination: " + To); // {index, alignment}
+            return String.Format("{0,-10}{1,-15}${2,-10}{3, -25}{4,-20}{5,-20}", Time, Day, Cost, Airline, "Origin: "+ From, "Destination: " + To); // {index, alignment}
 
         }
     }
