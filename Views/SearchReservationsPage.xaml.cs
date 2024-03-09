@@ -12,8 +12,9 @@ public partial class SearchReservationsPage : ContentPage
 	public SearchReservationsPage()
 	{
 		InitializeComponent();
-        new ReservationManager();
-    }
+        	new ReservationManager();
+	 	reservationPicker.ItemsSource = ReservationManager.madeReservations;
+    	}
 
     
     //will search reservationmanager's list of reservations made, return list of matches to display in the dropdown
