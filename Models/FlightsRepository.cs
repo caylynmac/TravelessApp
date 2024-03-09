@@ -60,14 +60,6 @@ namespace TravelessApp.Models
 
         }
 
-        
-        public static List<Flight> FindReservations(string AirlineCode, string AirlineName, string customerName)
-        {
-   
-            return Flights.Where(f => f.FlightCode.Equals(AirlineCode, StringComparison.OrdinalIgnoreCase) &&
-                                       f.Airline.Equals(AirlineName, StringComparison.OrdinalIgnoreCase)).ToList();
-        }
-
         //use airports.csv file to convert city name inputted by user to Airport code to match to the From and To properties properly
         //so that the user can type in a city name and find the corresponding airport that contains it in the airport name string
 
